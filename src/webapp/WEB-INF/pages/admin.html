@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+    table {
+      margin-top: 30px;
+      background-color: #fff;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      background-color: #212529;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #dee2e6;
+    }
+    td {
+      padding: 12px 15px;
+      border: 1px solid #dee2e6;
+    }
+    a.btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Admin page</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Password</th>
+      <th>Roles</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.password}"></td>
+      <td th:text="${user.roles}"></td>
+      <td><a th:href="@{/admin/updateUserForm/{id}(id=${user.id})}" class="btn btn-primary">Edit</a></td>
+      <td><a th:href="@{/admin/users/{id}/delete(id=${user.id})}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <a href="/admin/showAddUserForm" class="btn btn-success">Add new user</a>
+
+  <br>
+  <a type="button" th:href="@{/logout}" class="btn btn-danger mt-3">Logout</a>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

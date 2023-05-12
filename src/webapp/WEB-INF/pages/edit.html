@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h1>User Management System</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h2>Edit User</h2>
+            <form th:action="@{/admin/users/{id}/edit}" th:object="${user}" method="POST">
+
+                <input name="id" type="number" style="display: none;">
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" required th:field="*{name}" th:value="*{getName()}" placeholder="User Name"
+                           class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" required th:field="*{password}" th:value="*{getPassword()}"
+                           placeholder="Password" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="roles">Role:</label>
+                    <select class="form-control" name="roles">
+                        <option hidden value="">Select a role</option>
+                        <th:block th:each="role: ${listRoles}">
+                            <option th:value="${role.role}" th:text="${(role.role=='ROLE_ADMIN')?'Admin':'User'}"
+                                    th:for="${role.role}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-info">Save User</button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <a th:href="@{/admin}" class="btn btn-secondary mr-2">Back to User List</a>
+            <a type="button" th:href="@{/logout}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-2tZzfzOwOfHLtGIZflx8fTtYAJIOdlHkT+zTtdlX8slavz3q0ex0wJz+dOxWT8y1"></script>
+</div>
+</body>
+
+</html>
